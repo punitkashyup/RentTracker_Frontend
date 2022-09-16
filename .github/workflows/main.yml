@@ -3,7 +3,7 @@ name: Android Build
 on:
   push:
     branches:
-      - "main"
+      - "mainn"
     #tags:
       #- 'v[0-9]+.[0-9]+.[0-9]+([0-9]+)'
 
