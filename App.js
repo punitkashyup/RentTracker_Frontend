@@ -10,13 +10,15 @@ import React from 'react';
 import {SafeAreaView, StyleSheet,Text} from 'react-native';
 
 import AuthStack from './src/navigation/AuthStack';
+import AppStack from './src/navigation/AppStack';
 
 
 
 const App = () => {
+  // const token = false
   return (
     <SafeAreaView style={styles.root}>
-      <AuthStack />
+      <AppStack />
     </SafeAreaView>
   );
 };

@@ -43,17 +43,15 @@ const HomeScreen = () => {
         </View>
 
       <View style={style.dashboard}>
-        <View>
-            <Text style={style.statusText1}>Years</Text>
-            <Text style={style.statusText2}>1 yrs</Text>
+        <View style={[style.topview,style.border]}>
+            <Text style={style.DashboardText} >Years</Text>
+            <Text style={style.DashboardText}>Month</Text>
+            <Text style={style.DashboardText}>Total Spend</Text>
         </View>
-        <View>
-            <Text style={style.statusText1}>Month</Text>
-            <Text style={style.statusText2}>3 month</Text>
-        </View>
-        <View>
-            <Text style={style.statusText1}>Total Spend</Text>
-            <Text style={style.statusText2}>210,500 ₹</Text>
+        <View style={style.bottomview}>
+        <Text style={style.DashboardText} >1 yrs</Text>
+        <Text style={style.DashboardText} >3 month</Text>
+        <Text style={style.DashboardText} >210,500 ₹</Text>
         </View>
       </View>
       
@@ -115,9 +113,6 @@ const style = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '18%',
-    flexDirection: 'row',
-    // alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 10,
     marginBottom: 8,
     zIndex: 10,
@@ -125,35 +120,35 @@ const style = StyleSheet.create({
     borderRadius: 8,
     
   },
-  statusText1: {
-    marginTop: 5,
-    marginBottom: 10,
-    marginHorizontal: 25,
-    padding: 10,
+  topview:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    height: '50%',
+    alignItems: 'center',
+    marginTop: -5,
+  },
+  bottomview:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    height: '50%',
+    alignItems: 'center'
+  },
+  DashboardText:{
     fontSize: 16,
     fontFamily: 'Inter',
     color: '#2C8158',
     fontWeight: 'bold',
     shadowColor: '#40000000',
-    textShadowColor: 'rgba(0, 0, 0, 0.15)',
+    textShadowColor: 'rgba(0, 0, 0, 0.10)',
     textShadowRadius: 4,
     textShadowOffset: {width: 0, height: 4},
-    borderBottomColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderStyle: 'dashed',
-    borderBottomWidth: 1,
   },
-  statusText2: {
-    fontSize: 16,
-    color: 'black',
-    shadowColor: '#40000000',
-    textShadowColor: 'rgba(0, 0, 0, 0.15)',
-    textShadowRadius: 4,
-    textShadowOffset: {width: 0, height: 4},
-    marginHorizontal: 25,
-    padding: 10,
-    fontFamily: 'Inter',
-    fontWeight: 'bold',
+  border:{
+    borderStyle: 'dashed',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1.4,
+    marginTop: -10,
+    marginBottom: 5,
   },
   navbar:{
     flexDirection: 'row',
