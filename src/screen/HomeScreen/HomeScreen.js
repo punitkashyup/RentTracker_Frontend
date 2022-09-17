@@ -25,7 +25,7 @@ const HomeScreen = () => {
   const onProfileIconPress = () => {
     console.log();
     console.warn("Profile Pressed");
-    // navigation.navigate('');
+    navigation.navigate('ProfileScreen');
   }
   const onSignoutIconPress = () => {
     console.log();
@@ -49,9 +49,9 @@ const HomeScreen = () => {
             <Text style={style.DashboardText}>Total Spend</Text>
         </View>
         <View style={style.bottomview}>
-        <Text style={style.DashboardText} >1 yrs</Text>
-        <Text style={style.DashboardText} >3 month</Text>
-        <Text style={style.DashboardText} >210,500 ₹</Text>
+          <Text style={style.DashboardText} >1 yrs</Text>
+          <Text style={style.DashboardText} >3 month</Text>
+          <Text style={style.DashboardText} >210,500 ₹</Text>
         </View>
       </View>
       
