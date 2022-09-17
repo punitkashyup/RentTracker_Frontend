@@ -4,30 +4,36 @@ import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
+import { useLoginUserMutation } from '../../services/userAuthApi';
 
 const SignInScreen = () => {
   
   const {control, handleSubmit} = useForm ();
 
   const navigation = useNavigation();
+  const [loginUser] =useLoginUserMutation()
 
-  const onLogInPress = (data) => {
+  const onLogInPress = async(data) => {
     console.log(data);
     console.warn("Log in");
     // Validate User
+    const res = await loginUser (data)
+    if(res.data){
+      console.log("Response Data",res.data);
+    }
+    if(res.error){
+      console.log("Response Error",res.error.data.errors);
 
+    }
     // navigation.navigate('Home');
   }
-  const onSignUpPress = (data) => {
-    console.log(data);
+  const onSignUpPress = () => {
     console.warn("Sign Up");
     // Register  User
     navigation.navigate('SignUp');
   }
-  const onForgotPasswordPress = (data) => {
-    console.log(data);
+  const onForgotPasswordPress = () => {
     console.warn("Forgot Password");
-    // Register  User
     navigation.navigate('ForgotPasssword');
   }
 
@@ -38,8 +44,8 @@ const SignInScreen = () => {
       <Text style={style.logo}>₹entTracker</Text>
 
       <CustomInput 
-        name = "username"
-        placeholder="Username" 
+        name = "email"
+        placeholder="Email" 
         control={control}
       />
       <CustomInput 

@@ -1,23 +1,35 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ToastAndroid } from 'react-native'
 import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
-
+import {useRegisterUserMutation} from '../../services/userAuthApi';
 const SignUpScreen = () => {
   const {control, handleSubmit} = useForm ();
 
   const navigation = useNavigation();
 
+  const [registerUser] = useRegisterUserMutation()
+
+  const onSubmitPress = async (data) => {
+    const res = await registerUser (data)
+    console.log(data);
+    if(res.data){
+      console.log("Response Data",res.data);
+      navigation.navigate('SignIn');
+    }
+    if(res.error){
+      console.log("Response Error",res.error.data.errors);
+
+    }
+    // console.warn("Submit Sucessfully");
+  }
+  
   const onLogInPress = (data) => {
     console.log(data);
     console.warn("Log in");
     navigation.navigate('SignIn');
-  }
-  const onSubmitPress = (data) => {
-    console.log(data);
-    console.warn("Submit Sucessfully");
   }
 
   return (
@@ -45,7 +57,7 @@ const SignUpScreen = () => {
       />
 
       <CustomInput 
-      name = "repetPassword"
+      name = "password2"
       placeholder="Confirm Password"
       control={control}
       secureTextEntry={true}

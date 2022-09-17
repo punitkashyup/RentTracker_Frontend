@@ -8,6 +8,8 @@
 
 import React from 'react';
 import {SafeAreaView, StyleSheet,Text} from 'react-native';
+import { Provider } from 'react-redux';
+import { store } from "./src/store"
 
 import AuthStack from './src/navigation/AuthStack';
 import AppStack from './src/navigation/AppStack';
@@ -17,9 +19,11 @@ import AppStack from './src/navigation/AppStack';
 const App = () => {
   // const token = false
   return (
-    <SafeAreaView style={styles.root}>
-      <AppStack />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.root}>
+        <AuthStack />
+      </SafeAreaView>
+    </Provider>
   );
 };
 
