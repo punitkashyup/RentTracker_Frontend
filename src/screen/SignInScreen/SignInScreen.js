@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState,useEffect } from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
 import { useLoginUserMutation } from '../../services/userAuthApi';
+import { storeToken } from '../../services/AsyncStorageService';
+
 
 const SignInScreen = () => {
   
@@ -20,12 +22,12 @@ const SignInScreen = () => {
     const res = await loginUser (data)
     if(res.data){
       console.log("Response Data",res.data);
+      await storeToken(res.data.token)
     }
     if(res.error){
-      console.log("Response Error",res.error.data.errors);
+      console.warn("Response Error",res.error.data.errors.non_field_errors);
 
-    }
-    // navigation.navigate('Home');
+    } 
   }
   const onSignUpPress = () => {
     console.warn("Sign Up");

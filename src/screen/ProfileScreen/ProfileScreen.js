@@ -1,23 +1,24 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import CustomInput from '../../components/CustomInput/CustomInput';
+import React, { useState,useEffect } from 'react'
 import CustomButton from '../../components/CustomButton';
 import IconButton from '../../components/IconButton/IconButton';
 import { useNavigation } from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { getToken, removeToken} from '../../services/AsyncStorageService';
+import { useSelector } from 'react-redux';
 
 const ProfileScreen = () => {
 
   const {control, handleSubmit} = useForm ();
-
   const navigation = useNavigation();
 
+  const myData = useSelector(state => state.user)
 
-  const onEditProfilePress = (data) => {
-    console.log(data);
-    console.warn("Profile Pressed");
+  const onEditProfilePress =() => {
+    console.log();
+    console.warn("EditProfile Pressed");
   }
+
   const onBackPress = () => {
     console.log();
     console.warn("Back Pressed");
@@ -28,12 +29,11 @@ const ProfileScreen = () => {
     console.warn("Setting Pressed");
     navigation.navigate('AboutUsScreen');
   }
-  const onSignoutIconPress = () => {
-    console.log();
+  const onSignoutIconPress = async () => {
+    await removeToken()
     console.warn("Signout Pressed");
-    // navigation.navigate('');
   }
-
+  
   return (
     <View style={style.root}>
       
@@ -42,16 +42,14 @@ const ProfileScreen = () => {
         <Text style={style.logo}>Profile</Text>
         <IconButton name= "sign-out-alt" onPress={onSignoutIconPress}/>
       </View>
-
-
       <View style={style.dashboard}>
         <View style={[style.topview,style.border]}>
             <IconButton name= "grin" onPress={onSettingIconPress}/>
-            <Text style={style.DashboardText}>User Kumar</Text>
+            <Text style={style.DashboardText}>{myData.name}</Text>
         </View>
         <View style={[style.topview,style.border]}>
             <IconButton name= "at" onPress={onSettingIconPress}/>
-            <Text style={style.DashboardText}>somrthing@something.com</Text>
+            <Text style={style.DashboardText}>{myData.email}</Text>
         </View>
         <View style={[style.topview,style.border]}>
             <IconButton name= "cog" onPress={onSettingIconPress}/>
@@ -59,7 +57,7 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-      <CustomButton text="Edit Profile" onPress={handleSubmit(onEditProfilePress)}/>
+      <CustomButton text="Edit Profile" onPress={onEditProfilePress}/>
       <CustomButton text="Back" onPress={onBackPress}/>
       
 
@@ -113,13 +111,6 @@ const style = StyleSheet.create({
     textShadowRadius: 4,
     textShadowOffset: {width: 0, height: 4},
   },
-  // border:{
-  //   borderStyle: 'dashed',
-  //   borderBottomColor: 'black',
-  //   borderBottomWidth: 1.4,
-  //   marginTop: -10,
-  //   marginBottom: 5,
-  // },
   navbar:{
     flexDirection: 'row',
     justifyContent: 'space-evenly',

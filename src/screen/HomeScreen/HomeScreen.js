@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import IconButton from '../../components/IconButton/IconButton';
 import { useNavigation } from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { getToken } from '../../services/AsyncStorageService';
+import {useGetLoggedUserQuery} from '../../services/userAuthApi'
+import { useDispatch } from 'react-redux';
+import { setUserInfo } from '../../features/userSlice';
 
 const HomeScreen = () => {
 
@@ -13,6 +16,27 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
+  const [token, setToken] = useState({})
+  const dispatch = useDispatch()
+  useEffect(() => {
+    (async () => {
+      const token = await getToken()
+      if (token) {
+        const { access, refresh } = JSON.parse(token)
+        setToken({
+          "access": access,
+          "refresh": refresh
+        })
+      }
+    })();
+  }, [])
+
+  const { data,isSuccess} = useGetLoggedUserQuery(token.access)
+  useEffect(()=>{
+    if(isSuccess){
+      dispatch(setUserInfo({email:data.email, name:data.name}))
+    }
+  })
 
   const onSubmitPress = (data) => {
     console.log(data);

@@ -10,7 +10,7 @@ import React from 'react';
 import {SafeAreaView, StyleSheet,Text} from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from "./src/store"
-
+import MainNavigator from './src/navigation/MainNavigator';
 import AuthStack from './src/navigation/AuthStack';
 import AppStack from './src/navigation/AppStack';
 
